@@ -21,6 +21,28 @@ Android (Kotlin, Retrofit)  →  HTTP / JSON  →  API REST (Laravel 12 + PHP 8.
 
 Para volver a los 5 productos de ejemplo: `php artisan migrate:fresh --seed` (dentro de `api-productos`).
 
+## Acceso desde internet (túnel con ngrok)
+Permite usar la API desde otra red (por ejemplo, desde la universidad) mientras corre en la PC de casa.
+
+1. En la PC donde corre la API: XAMPP → **Start** en MySQL y doble clic en `api-productos/iniciar.bat`.
+2. Doble clic en **`api-productos/tunel.bat`** y dejar la ventana abierta.
+   Verifica que ngrok tenga el authtoken registrado y que la API esté corriendo, y abre el túnel.
+3. Desde cualquier lugar:
+   - API: `https://pureness-outrank-scanning.ngrok-free.dev/api/productos`
+     (en el navegador, ngrok muestra un aviso la primera vez → **Visit Site**).
+   - App Android: compilar con esa URL e instalar el APK en el celular:
+     ```bash
+     cd app-android-productos
+     gradlew assembleDebug -PapiBaseUrl=https://pureness-outrank-scanning.ngrok-free.dev/api/
+     ```
+     El APK queda en `app/build/outputs/apk/debug/app-debug.apk`.
+
+Requisitos (solo una vez): descargar ngrok en `%LOCALAPPDATA%\ngrok\` y registrar el token de la cuenta
+(dashboard.ngrok.com → *Your Authtoken*) con `ngrok config add-authtoken <token>`.
+
+⚠️ Mientras el túnel está abierto la API es pública y no tiene autenticación: cerrar `tunel.bat` al terminar.
+Los datos se guardan en el MySQL de la PC donde corre la API.
+
 ## Endpoints
 | Método | Ruta | Acción |
 |--------|------|--------|

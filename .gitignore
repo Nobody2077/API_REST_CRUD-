@@ -1,2 +1,5 @@
 # Paquete de entrega (duplica el código)
 *.zip
+
+# APK compilados
+*.apk
