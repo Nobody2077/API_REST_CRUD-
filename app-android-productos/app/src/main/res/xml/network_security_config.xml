@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    La API de desarrollo (php artisan serve) usa HTTP, no HTTPS.
+    Android bloquea HTTP por defecto, así que aquí se permite.
+    En producción la API debería usar HTTPS y esta configuración se quitaría.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

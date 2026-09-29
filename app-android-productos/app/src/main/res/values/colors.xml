@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Paleta del modo claro (el modo oscuro está en values-night/colors.xml) -->
+<resources>
+    <color name="primario">#1565C0</color>
+    <color name="sobre_primario">#FFFFFF</color>
+    <color name="contenedor_primario">#D6E3FF</color>
+    <color name="sobre_contenedor_primario">#001B3E</color>
+    <color name="secundario">#EF6C00</color>
+</resources>

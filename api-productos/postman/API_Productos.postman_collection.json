@@ -1,0 +1,100 @@
+{
+  "info": {
+    "name": "API Productos (Laravel)",
+    "description": "CRUD de productos: listar, ver uno, registrar, modificar y eliminar.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://127.0.0.1:8000/api" },
+    { "key": "id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "1. Listar productos",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/productos", "host": ["{{baseUrl}}"], "path": ["productos"] }
+      }
+    },
+    {
+      "name": "2. Consultar un producto",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/productos/{{id}}", "host": ["{{baseUrl}}"], "path": ["productos", "{{id}}"] }
+      }
+    },
+    {
+      "name": "3. Registrar producto",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 Created', () => pm.response.to.have.status(201));",
+              "const p = pm.response.json();",
+              "if (p.data && p.data.id) { pm.collectionVariables.set('id', p.data.id); }"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Audífonos JBL Tune 510BT\",\n  \"descripcion\": \"Bluetooth 5.0, hasta 40 h de batería\",\n  \"precio\": 229.90,\n  \"stock\": 20\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/productos", "host": ["{{baseUrl}}"], "path": ["productos"] }
+      }
+    },
+    {
+      "name": "4. Modificar producto",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Audífonos JBL Tune 520BT\",\n  \"descripcion\": \"Bluetooth 5.3, versión actualizada\",\n  \"precio\": 249.90,\n  \"stock\": 18\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/productos/{{id}}", "host": ["{{baseUrl}}"], "path": ["productos", "{{id}}"] }
+      }
+    },
+    {
+      "name": "5. Eliminar producto",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/productos/{{id}}", "host": ["{{baseUrl}}"], "path": ["productos", "{{id}}"] }
+      }
+    },
+    {
+      "name": "6. Error: registrar con datos inválidos (422)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"\",\n  \"precio\": -5\n}" },
+        "url": { "raw": "{{baseUrl}}/productos", "host": ["{{baseUrl}}"], "path": ["productos"] }
+      }
+    },
+    {
+      "name": "7. Error: producto inexistente (404)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/productos/9999", "host": ["{{baseUrl}}"], "path": ["productos", "9999"] }
+      }
+    }
+  ]
+}

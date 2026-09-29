@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Productos</string>
+
+    <!-- Listado -->
+    <string name="titulo_lista">Gestión de productos</string>
+    <string name="nuevo_producto">Nuevo</string>
+    <string name="lista_vacia">No hay productos registrados.\nPulsa «Nuevo» para agregar uno.</string>
+    <string name="error_con_reintento">%1$s\n\nDesliza hacia abajo para reintentar.</string>
+    <string name="formato_precio">Precio: %1$.2f</string>
+    <string name="formato_stock">Stock: %1$d</string>
+    <string name="editar">Editar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="eliminar_titulo">Eliminar producto</string>
+    <string name="eliminar_mensaje">¿Seguro que deseas eliminar «%1$s»?</string>
+
+    <!-- Formulario -->
+    <string name="titulo_nuevo">Registrar producto</string>
+    <string name="titulo_editar">Modificar producto</string>
+    <string name="volver">Volver</string>
+    <string name="campo_nombre">Nombre</string>
+    <string name="campo_descripcion">Descripción (opcional)</string>
+    <string name="campo_precio">Precio</string>
+    <string name="campo_stock">Stock</string>
+    <string name="registrar">Registrar</string>
+    <string name="guardar_cambios">Guardar cambios</string>
+</resources>

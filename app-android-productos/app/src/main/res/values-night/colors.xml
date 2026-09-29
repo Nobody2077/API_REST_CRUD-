@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Paleta del modo oscuro -->
+<resources>
+    <color name="primario">#A8C8FF</color>
+    <color name="sobre_primario">#003062</color>
+    <color name="contenedor_primario">#00468A</color>
+    <color name="sobre_contenedor_primario">#D6E3FF</color>
+    <color name="secundario">#FFB68A</color>
+</resources>

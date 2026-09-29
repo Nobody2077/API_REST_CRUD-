@@ -1,0 +1,94 @@
+CAPTURAS DE EJECUCIÓN Y PRUEBA - API REST CRUD de productos
+Tomadas el 28/09/2026 con la API, MySQL (XAMPP) y el emulador Pixel 5 (Android 14) funcionando.
+
+=====================================================================
+QUÉ CAPTURA VA EN CADA ESPACIO AMARILLO DEL INFORME
+=====================================================================
+Figura 1  (tabla en phpMyAdmin)        -> 01_base_de_datos_phpmyadmin\01_estructura_tabla_productos.png
+                                         (o 02_datos_tabla_productos_inicial.png si prefieres mostrar los datos)
+Figura 2  (Postman GET listado)        -> 02_pruebas_api\01_GET_1_listar_productos.png
+Figura 3  (Postman POST registrar)     -> 02_pruebas_api\03_POST_3_registrar_producto.png
+Figura 4  (Postman PUT modificar)      -> 02_pruebas_api\04_PUT_4_modificar_producto.png
+Figura 5  (Postman DELETE eliminar)    -> 02_pruebas_api\05_DELETE_5_eliminar_producto.png
+Figura 6  (Postman error 422)          -> 02_pruebas_api\06_POST_6_error_registrar_con_datos_invalidos_422.png
+Figura 15 (phpMyAdmin tras cambio app) -> 01_base_de_datos_phpmyadmin\03_datos_tras_registrar_desde_app.png
+                                         (se ve la fila id 10 «Audifonos Sony WH-CH520» creada desde la app;
+                                          conviene ponerla junto a 05_app_android\10_demo_bd_lista_con_producto_nuevo.png)
+
+IMPORTANTE sobre las figuras 2 a 6: NO son capturas de la ventana de Postman (Postman de escritorio
+no está instalado en esta PC). Son la colección de Postman REAL (api-productos\postman\...json)
+ejecutada con Newman, el ejecutor oficial de Postman por línea de comandos. Los datos de petición y
+respuesta son los reales de esa ejecución. En el informe descríbelas como «ejecución de la colección
+de Postman con Newman». Si tu docente exige ver la interfaz de Postman o Thunder Client, tómalas tú
+(Thunder Client ya está instalado en tu VS Code).
+
+=====================================================================
+01_base_de_datos_phpmyadmin   (capturas reales de phpMyAdmin)
+=====================================================================
+01_estructura_tabla_productos.png       Estructura de la tabla productos (campos y tipos)
+02_datos_tabla_productos_inicial.png    Los 5 productos de ejemplo (seeder)
+03_datos_tras_registrar_desde_app.png   6 filas: aparece la fila id 10 registrada desde la app
+04_datos_tras_eliminar_desde_app.png    Vuelve a 5 filas tras eliminarla desde la app
+
+=====================================================================
+02_pruebas_api   (colección de Postman ejecutada con Newman)
+=====================================================================
+00_resumen_newman.png                               Resumen: 7 peticiones ejecutadas, 0 fallidas
+01_GET_1_listar_productos.png                       GET /api/productos            -> 200
+02_GET_2_consultar_un_producto.png                  GET /api/productos/1          -> 200
+03_POST_3_registrar_producto.png                    POST /api/productos           -> 201 (crea id 11)
+04_PUT_4_modificar_producto.png                     PUT /api/productos/11         -> 200
+05_DELETE_5_eliminar_producto.png                   DELETE /api/productos/11      -> 200
+06_POST_6_error_registrar_con_datos_invalidos_422.png  POST con datos inválidos    -> 422
+07_GET_7_error_producto_inexistente_404.png         GET /api/productos/9999       -> 404
+
+=====================================================================
+03_codigo   (código fuente real del proyecto, con números de línea)
+=====================================================================
+API Laravel:
+01_api_rutas_api.php.png                     routes/api.php (las 5 rutas)
+02_api_ProductoController.php.png            Controlador CRUD
+03_api_ProductoRequest_validacion.php.png    Validación y mensajes en español
+04_api_ProductoResource.php.png              Formato JSON de salida
+05_api_modelo_Producto.php.png               Modelo Eloquent
+06_api_migracion_productos.php.png           Migración (estructura de la tabla)
+07_api_manejo_errores_bootstrap_app.php.png  Errores 404/405/422 en JSON
+08_api_tests_ProductoApiTest.php.png         Pruebas automatizadas
+App Android (Kotlin):
+09_android_ProductoApiService.kt.png         Endpoints con Retrofit
+10_android_RetrofitClient.kt.png             Configuración de Retrofit/OkHttp
+11_android_ProductoRepository.kt.png         Repositorio (llamadas a la API y errores)
+12_android_ListaProductosViewModel.kt.png    ViewModel del listado
+13_android_FormularioProductoViewModel.kt.png ViewModel del formulario
+14_android_ListaProductosActivity.kt.png     Pantalla principal
+
+=====================================================================
+04_ejecucion_terminal   (salidas reales de los comandos)
+=====================================================================
+01_version.png                   php artisan about: Laravel 12.69.2, PHP 8.2.12, Composer 2.9.7
+02_migraciones.png               php artisan migrate:fresh --seed (crea tablas y datos)
+03_rutas.png                     php artisan route:list --path=api (los 5 endpoints)
+04_tests.png                     php artisan test: 9 passed (7 propios + 2 de ejemplo de Laravel)
+05_android_compilacion.png       gradlew clean assembleDebug: BUILD SUCCESSFUL
+06_android_instalacion.png       adb install de la app en el emulador
+07_android_trafico_http.png      Log de la app: GET a la API y respuesta 200 con JSON
+08_servidor_api.png              php artisan serve: peticiones recibidas por la API
+09_newman_coleccion_postman.png  Ejecución de la colección de Postman (igual que 02_pruebas_api\00)
+Nota: son el texto real que devolvió cada comando, convertido a imagen con aspecto de consola
+(no son capturas de una ventana abierta).
+
+=====================================================================
+05_app_android   (capturas reales del emulador Pixel 5, Android 14)
+=====================================================================
+01_listado_productos_GET.png           Pantalla principal con los productos (GET)
+02_validacion_campos_obligatorios.png  Errores al intentar registrar sin datos
+03_formulario_registrar_POST.png       Formulario lleno antes de registrar
+04_listado_tras_registrar.png          Producto nuevo en la lista
+05_formulario_modificar_PUT.png        Edición de precio y stock
+06_listado_tras_modificar.png          Lista con los datos modificados
+07_confirmacion_eliminar.png           Diálogo de confirmación
+08_producto_eliminado_DELETE.png       Mensaje «Producto eliminado correctamente.»
+09_demo_bd_registro_desde_app.png      Registro de «Audifonos Sony WH-CH520» (demo con phpMyAdmin)
+10_demo_bd_lista_con_producto_nuevo.png  El producto registrado en la lista
+11_demo_bd_eliminado_desde_app.png     El mismo producto eliminado desde la app
+(Las 01 a 08 son las mismas que ya están en el informe, figuras 7 a 14.)
